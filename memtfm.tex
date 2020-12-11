@@ -1,0 +1,554 @@
+
+%\documentclass[spanish,a4paper,11pt,oneside]{extreport}
+\documentclass[12pt,a4paper,oneside]{report}
+
+% Fonts
+% For use with XeLaTeX
+\usepackage{amsmath}
+\usepackage{fontspec}
+\setmainfont[%
+  Path              = ./fonts/ArgentumSans/,%
+  Extension         = .ttf,
+  UprightFont       = *-Light,
+  BoldFont          = *-SemiBold, % ULL bold font
+  ItalicFont        = *-LightItalic,
+  BoldItalicFont    = *-SemiBoldItalic, % Linux Libertine O Regular Semibold Italic
+  Scale             = 0.95%
+]%
+{hinted-ArgentumSans}
+
+\usepackage{graphicx}
+% \usepackage[utf8]{inputenc}
+% Only with pdflatex
+
+\usepackage[spanish,es-tabla]{babel}
+
+%\usepackage{alltt}
+
+%\usepackage[ruled,vlined,commentsnumbered,linesnumbered,inoutnumbered,titlenotnumbered,noend]{algorithm2e}
+%\SetKwRepeat{Do}{do}{while}
+%
+\usepackage{afterpage}
+%\usepackage{multirow}
+%\usepackage{array} 
+%\usepackage{amsfonts}
+%\usepackage{amsmath}
+%\usepackage{bigstrut}
+%\usepackage{booktabs}
+%\usepackage{caption}
+%\usepackage{chngpage}
+%\usepackage{float}
+%\usepackage{enumitem,lipsum}
+%\usepackage{graphicx}
+%\usepackage{lscape}
+%\usepackage{microtype}
+%\usepackage{natbib}
+%\usepackage{pdflscape}
+%\usepackage{rotating}
+%\usepackage{subcaption}
+\usepackage{subfigure}
+%\usepackage{ctable}
+\usepackage{hyperref}
+%\usepackage{enumerate}
+%\usepackage{gensymb}
+%\usepackage{eurosym}
+
+%
+%\usepackage{lineno}
+%%\\linenumbers
+%\setlength\linenumbersep{5pt}
+%\renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{gray}}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+
+\newenvironment{sourcecode}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item\scriptsize\bfseries}
+{\end{list}}
+
+\newenvironment{littlesourcecode}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item\tiny\bfseries}
+{\end{list}} 
+
+
+\newenvironment{summary}
+{\par\noindent\begin{center}\textbf{Abstract}\end{center}\begin{itshape}\par\noindent}
+{\end{itshape}}
+
+\newenvironment{keywords}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item[\hskip\labelsep \bfseries Keywords:]}
+{\end{list}}
+
+\newenvironment{palabrasClave}
+{\begin{list}{}{\setlength{\leftmargin}{1em}}\item[\hskip\labelsep \bfseries Palabras clave:]}
+{\end{list}}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listado}
+\lstloadlanguages{C,Python,XML}
+\lstset{
+  language=C,                           % C,Fortran,XML
+  basicstyle=\small,             % Listados en small
+  keywordstyle=\color{red},             % Palabras clave en rojo
+  identifierstyle=\ttfamily,
+  %escapeinside={(*@}{@*)},
+  commentstyle=\color{blue},            % comentarios en azul
+  stringstyle=\color{green},            % cadenas en verde
+  showstringspaces=false,
+  frame=tb,
+  captionpos=b,
+  belowcaptionskip=12pt,
+  stepnumber=1,     % Opciones de lineas y etiquetas
+  numbers=left, 
+  numberstyle=\scriptsize,
+  numbersep=5pt,
+  tabsize=1
+}
+
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+% ECMAScript 2015 (ES6) definition by Gary Hammock
+%
+
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+  morekeywords=[1]{await, async, case, catch, class, const, default, do,
+    enum, export, extends, finally, from, implements, import, instanceof,
+    let, static, super, switch, throw, try},
+  morestring=[b]` % Interpolation strings.
+}
+
+
+%
+% JavaScript version 1.1 by Gary Hammock
+%
+% Reference:
+%   B. Eich and C. Rand Mckinney, "JavaScript Language Specification
+%     (Preliminary Draft)", JavaScript 1.1.  1996-11-18.  [Online]
+%     http://hepunx.rl.ac.uk/~adye/jsspec11/titlepg2.htm
+%
+
+\lstdefinelanguage{JavaScript}{
+  morekeywords=[1]{break, continue, delete, else, for, function, if, in,
+    new, return, this, typeof, var, void, while, with},
+  % Literals, primitive types, and reference types.
+  morekeywords=[2]{false, null, true, boolean, number, undefined,
+    Array, Boolean, Date, Math, Number, String, Object},
+  % Built-ins.
+  morekeywords=[3]{eval, parseInt, parseFloat, escape, unescape},
+  sensitive,
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morecomment=[s]{/**}{*/}, % JavaDoc style comments
+  morestring=[b]',
+  morestring=[b]"
+}[keywords, comments, strings]
+
+
+\lstalias[]{ES6}[ECMAScript2015]{JavaScript}
+
+% Requires package: color.
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+\lstdefinestyle{JSES6Base}{
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  frame=single,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
+  title=\lstname,
+  upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{JavaScript}{
+  language=JavaScript,
+  style=JSES6Base
+}
+\lstdefinestyle{ES6}{
+  language=ES6,
+  style=JSES6Base
+}
+
+
+% Espaciado entre parrafo y lineas.
+% Modificar mas abajo, antes del resumen
+%\setlength{\parindent}{4em}
+%\setlength{\parskip}{10pt}
+\renewcommand{\baselinestretch}{1.1}
+
+
+\begin{document}
+
+\renewcommand\listtablename{Índice de Tablas}    
+\renewcommand\listfigurename{Índice de Figuras}    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{empty}
+\thispagestyle{empty}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{1mm}}
+\setlength{\parindent}{0mm}
+\setlength{\parskip}{0mm}
+
+\vspace*{\stretch{0.5}}
+
+\begin{center}
+\includegraphics[scale=0.8]{images/escuela-doctorado-posgrado-original}\\[10mm]
+{\Huge\bf  Trabajo de Fin de Máster}
+\end{center}
+
+\HRule
+\begin{flushright}
+        {\Huge Titulo del trabajo} \\[2.5mm]
+        {\Large \textit{Título del trabajo en inglés}} \\[5mm]
+        {\Large Nombre y apellidos} \\[5mm]
+
+
+\end{flushright}
+\HRule
+\vspace*{\stretch{2}}
+\begin{center}
+  \Large La Laguna, \today
+\end{center}
+
+\setlength{\parindent}{5mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Signature page (add the official stamp)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+D. {\bf Nombre Apellido1 Apellido2}, con N.I.F. 12.345.678-X profesor Titular de Universidad adscrito al Departamento de Nombre del Departamento de la Universidad de La Laguna, como tutor
+
+\bigskip
+D. {\bf Nombre Apellido1 Apellido2}, con N.I.F. 12.345.678-X profesor Titular de Universidad adscrito al Departamento de Nombre del Departamento de la Universidad de La Laguna, como cotutor\pagestyle{empty}
+
+\bigskip
+\bigskip
+{\bf C E R T I F I C A (N)}
+
+\bigskip
+\bigskip
+Que la presente memoria titulada:
+
+\bigskip
+''{\it Título del Trabajo}''
+
+\bigskip
+\bigskip
+\bigskip
+
+\noindent ha sido realizada bajo su dirección por D. {\bf Nombre Apellido1 Apellido2},
+con N.I.F. 12.345.678-X.
+
+\bigskip
+\bigskip
+
+Y para que así conste, en cumplimiento de la legislación vigente y a los efectos
+oportunos firman la presente en La Laguna a \today
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+{ \flushright
+
+\begin{LARGE}
+Agradecimientos
+\end{LARGE}
+
+\hspace{3mm}
+
+
+XXXXX
+
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+\bigskip
+\begin{LARGE}
+Licencia
+\end{LARGE}
+
+\bigskip
+* Si NO quiere permitir que se compartan las adaptaciones de tu obra y NO quieres permitir usos comerciales de tu obra indica:
+
+\begin{center}
+\includegraphics[scale=1.8]{images/by-nc-nd_88x31}\\[5mm]
+\end{center}
+
+© Esta obra está bajo una licencia de Creative Commons \\
+  Reconocimiento-NoComercial-SinObraDerivada 4.0 Internacional.
+
+\bigskip
+\bigskip
+\bigskip
+* Si quiere permitir que se compartan las adaptaciones de tu obra mientras se comparta de la misma manera y NO quieres permitir usos comerciales de tu obra indica:
+
+\begin{center}
+\includegraphics[scale=1.8]{images/by-nc-sa_88x31}\\[5mm]
+\end{center}
+
+
+© Esta obra está bajo una licencia de Creative Commons \\
+Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional.
+
+\bigskip
+\bigskip
+\bigskip
+* Si quiere permitir que se compartan las adaptaciones de tu obra y NO quieres permitir usos comerciales de tu obra indica:
+
+\begin{center}
+\includegraphics[scale=1.8]{images/by-nc_88x31}\\[5mm]
+\end{center}
+
+
+© Esta obra está bajo una licencia de Creative Commons \\
+Reconocimiento-NoComercial 4.0 Internacional.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+\bigskip
+*Si NO quiere permitir que se compartan las adaptaciones de tu obra y quieres permitir usos comerciales de tu obra indica:
+
+\begin{center}
+\includegraphics[scale=1.8]{images/by-nd_88x31}\\[5mm]
+\end{center}
+
+© Esta obra está bajo una licencia de Creative Commons \\
+Reconocimiento-SinObraDerivada 4.0 Internacional.
+
+\bigskip
+\bigskip
+\bigskip
+* Si quiere permitir que se compartan las adaptaciones de tu obra mientras se comparta de la misma manera y quieres permitir usos comerciales de tu obra (licencia de Cultura Libre) indica:
+
+\begin{center}
+\includegraphics[scale=1.8]{images/by-sa_88x31}\\[5mm]
+\end{center}
+
+© Esta obra está bajo una licencia de Creative Commons \\
+Reconocimiento-CompartirIgual 4.0 Internacional.
+
+\bigskip
+\bigskip
+\bigskip
+* Si quiere permitir que se compartan las adaptaciones de tu obra y quieres permitir usos comerciales de tu obra (licencia de Cultura Libre) indica:
+
+\begin{center}
+\includegraphics[scale=1.8]{images/by_88x31}\\[5mm]
+\end{center}
+
+© Esta obra está bajo una licencia de Creative Commons Reconocimiento 4.0 Internacional.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage 
+\thispagestyle{empty}
+
+\input{0resumen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage 
+\vspace*{200pt}
+\thispagestyle{empty}
+
+\input{0summary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{myheadings} %my head defined by markboth or markright
+% No funciona bien \markboth sin "twoside" en \documentclass, pero al
+% ponerlo se dan un montÃ³n de errores de underfull \vbox, con lo que no se
+% ha puesto.
+
+
+%%Aqui debería poner el nombre del proyecto pero, como es muy grande no cabe y se ve feo en el PDF
+\markboth{xxxxx}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Numeracion en romanos
+\renewcommand{\thepage}{\roman{page}}
+\setcounter{page}{1}
+\pagestyle{plain} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+
+\listoffigures
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+
+\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+%Numeracion a partir del capitulo I
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{1}
+\pagestyle{plain}
+
+\chapter{\LARGE Introducción}
+\label{chapter:intro}
+
+\input{1cap.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Título del Capítulo 2}
+\label{chapter:dos}
+
+\input{2cap.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Título del Capítulo 3}
+\label{chapter:tres}
+
+\input{3cap.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Título del Capítulo 4}
+\label{chapter:cuatro}
+
+\input{4cap.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Conclusiones y líneas futuras}
+\label{chapter:conclusiones}
+
+\input{5conclusiones}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Summary and Conclusions}
+\label{chapter:conclusions}
+
+\input{6conclusions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+
+\chapter{\LARGE Presupuesto}
+\label{chapter:presupuesto}
+\input{7presupuesto}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}\cleardoublepage}
+\thispagestyle{empty}
+
+\begin{appendix}
+
+\chapter{\LARGE Título del Apéndice 1}
+\label{appendix:1}
+\input{apendice1}
+
+\chapter{\LARGE Título del Apéndice 2}
+\label{appendix:2}
+\input{apendice2}
+
+\end{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aquí figurará la bibliografía
+
+\bibliographystyle{plain}
+\bibliography{memtfg}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
